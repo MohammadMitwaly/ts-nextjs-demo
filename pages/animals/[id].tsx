@@ -1,21 +1,21 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
+import IAnimal from "../../models/interfaces/animal";
+import styles from "../../styles/Home.module.css";
 
 const Animal = ({ animal }) => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { id, scientific_name, icon, image } = animal;
   return (
     <>
       <Head>
         <title>
-          {animal.id}
-          {animal.icon}
+          {id}
+          {icon}
         </title>
       </Head>
-      <div>
-        <h1>{animal.id}</h1>
-        <h2>Scientific name: {animal.scientific_name}</h2>
-        <img src={animal.image} />
+      <div className={styles.container}>
+        <h1 className={styles.title}>{id}</h1>
+        <h3>Scientific name: {scientific_name}</h3>
+        <img style={{ width: "50%", borderRadius: "5%" }} src={image} />
       </div>
     </>
   );
@@ -23,7 +23,7 @@ const Animal = ({ animal }) => {
 
 export const getStaticProps = async ({ params }) => {
   const request = await fetch(`http://localhost:3000/${params.id}.json`);
-  const result = await request.json();
+  const result: IAnimal = await request.json();
 
   return {
     props: {
@@ -36,7 +36,7 @@ export const getStaticPaths = async () => {
   const req = await fetch("http://localhost:3000/animals.json");
   const result = await req.json();
 
-  const paths = result.map((animal) => {
+  const paths = result.map((animal: string) => {
     return { params: { id: animal } };
   });
 
