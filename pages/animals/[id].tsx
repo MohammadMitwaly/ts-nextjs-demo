@@ -14,8 +14,12 @@ const Animal = ({ animal }) => {
       </Head>
       <div className={styles.container}>
         <h1 className={styles.title}>{id}</h1>
-        <h3>Scientific name: {scientific_name}</h3>
-        <img style={{ width: "50%", borderRadius: "5%" }} src={image} />
+        <h2>Scientific name: {scientific_name}</h2>
+        <img
+          style={{ width: "50%", borderRadius: "5%" }}
+          src={image}
+          alt={`Image of ${id}`}
+        />
       </div>
     </>
   );
